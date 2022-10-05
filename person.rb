@@ -17,6 +17,7 @@ class Person < Nameable
    def correct_name
     @name
    end
+   
   private :of_age?
 
   def can_use_services?
