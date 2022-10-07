@@ -16,13 +16,13 @@ class App
 
   # list all books
   def list_books
-    @books.each_with_index { |_books, i| print " Title: \"#{book.title}\", Author: \"#{book.author}\"\n" }
+    @books.each_with_index { |_books, _i| print " Title: \"#{book.title}\", Author: \"#{book.author}\"\n" }
   end
 
   # students and teachers
   def list_people
     people = [*@teacher, *@student]
-    people.each_with_index { |person, i| print " Name: \"#{person.name}\", Age: \"#{person.age}\"\n" }
+    people.each_with_index { |person, _i| print " Name: \"#{person.name}\", Age: \"#{person.age}\"\n" }
   end
 
   # create person
@@ -37,7 +37,7 @@ class App
       name = gets.chomp
       print 'Do you have parental permission? [Y/N]: '
       parent_permission = gets.chomp
-       case parent_permission.capitalize
+      case parent_permission.capitalize
       when 'Y'
         true
       else
