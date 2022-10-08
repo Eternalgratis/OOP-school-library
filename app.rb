@@ -16,7 +16,7 @@ class App
 
   # list all books
   def list_books
-    @books.each_with_index { |_books, _i| print " Title: \"#{book.title}\", Author: \"#{book.author}\"\n" }
+    @books.each_with_index { |books, _i| print " Title: \"#{book.title}\", Author: \"#{book.author}\"\n" }
   end
 
   # students and teachers
@@ -35,13 +35,10 @@ class App
       age = gets.chomp.to_i
       print 'Name: '
       name = gets.chomp
-      print 'Do you have parental permission? [Y/N]: '
-      parent_permission = gets.chomp
-      case parent_permission.capitalize
-      when 'Y'
-        true
-      else
-        false
+      permission = ''
+      until %w[Y N].include?(permission)
+      print 'Do you have parent permission? [Y/N]:'
+      permission = gets.chomp.capitalize
       end
       print 'classrom: '
       classroom = gets.chomp
