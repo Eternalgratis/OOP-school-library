@@ -16,7 +16,7 @@ class App
 
   # list all books
   def list_books
-    @books.each_with_index { |books, _i| print " Title: \"#{book.title}\", Author: \"#{book.author}\"\n" }
+    @books.each_with_index { |book, _i| print " Title: \"#{book.title}\", Author: \"#{book.author}\"\n" }
   end
 
   # students and teachers
