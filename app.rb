@@ -11,25 +11,43 @@ class App
     @books = []
     @student = []
     @teacher = []
-    @rental = []
+    @rentals = []
+    @people = []
   end
 
   # list all books
   def list_books
-    @books.each_with_index { |book, _i| print " Title: \"#{book.title}\", Author: \"#{book.author}\"\n" }
+    if @books.length.zero?
+      print 'There are no books '
+    else
+    @books.each_with_index { |book, index| print " (#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\"\n" }
+    end
   end
 
   # students and teachers
   def list_people
+    if @people.length.zero?
+      puts 'There are no people yet '
+    else
     people = [*@teacher, *@student]
-    people.each_with_index { |person, _i| print " Name: \"#{person.name}\", Age: \"#{person.age}\"\n" }
+    people.each_with_index { |person, index| puts " (#{index}) [#{person.class}] Age: \"#{person.age}\", Name: \"#{person.name}\", ID: \"#{person.id}\"\n" }
+    end
   end
 
-  # create person
+  # create person which in this case is teacher and student
+  def add_new_student(student)
+    @people << student
+  end
+  def add_new_teacher(teacher)
+    @people << teacher
+  end
   def create_person
+    person_option = 0
+    until [1, 2].include? person_option
     print 'Do you want to create a student (1) or a teacher (2) [Input the number] : '
-    input = gets.chomp.to_i
-    case input
+    person_option = gets.chomp.to_i
+    end
+    case person_option
     when 1
       print 'Age: '
       age = gets.chomp.to_i
@@ -40,11 +58,13 @@ class App
         print 'Do you have parent permission? [Y/N]:'
         permission = gets.chomp.capitalize
       end
-      print 'classrom: '
+      print 'classroom: '
       classroom = gets.chomp
-      new_student = Student.new(age, name, parent_permission, classroom)
-      new_student.name = name
-      @student.push(new_student)
+      student = Student.new(age, name, parent_permission: permission == 'Y')
+      add_new_student(student)
+      # new_student = Student.new(age, name, permission, classroom)
+      # new_student.name = name
+      # @student.push(new_student)
       puts 'Students created sucessfully '
     when 2
       print 'Age: '
@@ -53,6 +73,8 @@ class App
       name = gets.chomp
       print ' Enter Specialization: '
       specialization = gets.chomp
+      # teacher = Teacher.new(age, name, specialization)
+      # add_new_teacher(teacher)
       new_teacher = Teacher.new(age, specialization)
       new_teacher.name = name
       @teacher.push(new_teacher)
@@ -75,17 +97,17 @@ class App
 
   # create rental
   def create_rental
-    print "Select a book from the following list by number\n"
-    list_books
-    book = gets.chomp.to_i
     print "Select a person\n"
     list_people
     person = gets.chomp.to_i
+    print "Select a book\n"
+    list_books
+    book = gets.chomp.to_i
     print 'Date [yyyy/mm/dd]: '
     date = gets.chomp
     people = [*@teacher, *@student]
     new_rental = Rental.new(date, @books[book], people[person])
-    @rental.push(new_rental)
+    @rentals.push(new_rental)
     puts 'Rental created successfully'
   end
 
@@ -93,7 +115,7 @@ class App
   def list_rentals
     print 'Enter person ID: '
     id = gets.chomp.to_i
-    @rental.each do |rental|
+    @rentals.each do |rental|
       if rental.person.id == id
         print "Date: #{rental.date}, Book: \"#{rental.book.title}\" Author #{rental.book.author}\n"
       end
