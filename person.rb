@@ -8,10 +8,10 @@ class Person < Nameable
   def initialize(age, name, parent_permission)
     super()
     @id = Random.rand(1..1000)
-          @name = name
-          @age = age
-          @parent_permission = parent_permission
-          @rentals = []
+    @name = name
+    @age = age
+    @parent_permission = parent_permission
+    @rentals = []
   end
 
   def of_age?
@@ -29,7 +29,7 @@ class Person < Nameable
     else
       # people = [@teacher, @student]
       people.each_with_index do |person, index|
-        puts "#{index} ) [ #{person.classroom}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+        puts "#{index} ) [ #{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
       end
     end
   end
